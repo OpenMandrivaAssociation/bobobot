@@ -1,7 +1,7 @@
 %define	name	bobobot
 %define	version	0
 %define preview preview3
-%define rel %mkrel 3
+%define rel %mkrel 4
 %define release	16.%{preview}.%rel
 %define	Summary	Mario-like game
 
@@ -11,7 +11,7 @@ Version:	%{version}
 Release:	%{release}
 Source0:	ftp://ftp.sonic.net/pub/users/nbs/unix/x/bobobot/bobobot-preview3.tar.bz2
 Url:		http://newbreedsoftware.com/bobobot/
-License:	GPL
+License:	GPLv2+
 Group:		Games/Arcade
 BuildRequires:	SDL_mixer-devel X11-devel alsa-lib-devel esound-devel ImageMagick
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -42,16 +42,6 @@ convert %{name}-icon.xpm -size 16x16 $RPM_BUILD_ROOT%{_miconsdir}/%{name}.png
 convert %{name}-icon.xpm -size 32x32 $RPM_BUILD_ROOT%{_iconsdir}/%{name}.png
 convert %{name}-icon.xpm -size 48x48 $RPM_BUILD_ROOT%{_liconsdir}/%{name}.png
 
-%{__install} -d $RPM_BUILD_ROOT%{_menudir}
-%{__cat} <<EOF > $RPM_BUILD_ROOT%{_menudir}/%{name}
-?package(%{name}):command="%{_gamesbindir}/%{name}" \
-                icon=%{name}.png \
-                needs="x11" \
-                section="More Applications/Games/Arcade" \
-                title="BoboBot"\
-                longtitle="%{Summary}"\
-                xdg="true"
-EOF
 
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
 cat > $RPM_BUILD_ROOT%{_datadir}/applications/mandriva-%{name}.desktop << EOF
@@ -63,7 +53,7 @@ Exec=%_gamesbindir/%{name}
 Icon=%{name}
 Terminal=false
 Type=Application
-Categories=Game;ArcadeGame;X-MandrivaLinux-MoreApplications-Games-Arcade;
+Categories=Game;ArcadeGame;
 EOF
 
 install -d $RPM_BUILD_ROOT{%{_gamesbindir},%{_gamesdatadir}/%{name}}
@@ -84,7 +74,6 @@ rm -rf $RPM_BUILD_ROOT
 %doc docs/*
 %{_gamesdatadir}/%{name}
 %{_datadir}/applications/*
-%{_menudir}/%{name}
 %{_miconsdir}/%{name}.png
 %{_iconsdir}/%{name}.png
 %{_liconsdir}/%{name}.png
