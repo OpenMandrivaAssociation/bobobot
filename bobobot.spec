@@ -14,6 +14,7 @@ Url:		http://newbreedsoftware.com/bobobot/
 License:	GPLv2+
 Group:		Games/Arcade
 BuildRequires:	SDL_mixer-devel X11-devel alsa-lib-devel esound-devel ImageMagick
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Patch0:		%{name}-preview3-fix-makefile.patch.bz2
 Patch2:		%{name}-preview3-fix-nosound.patch.bz2
 
