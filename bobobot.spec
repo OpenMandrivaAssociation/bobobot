@@ -60,11 +60,15 @@ install -d $RPM_BUILD_ROOT{%{_gamesbindir},%{_gamesdatadir}/%{name}}
 make INSTALLROOT=$RPM_BUILD_ROOT%{_gamesdatadir}/%{name}
 mv $RPM_BUILD_ROOT%{_gamesdatadir}/%{name}/%{name} $RPM_BUILD_ROOT%{_gamesbindir}
 
+%if %mdkversion < 200900
 %post
 %update_menus
+%endif
 
+%if %mdkversion < 200900
 %postun
 %clean_menus
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
