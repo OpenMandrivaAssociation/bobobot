@@ -1,7 +1,7 @@
 %define	name	bobobot
 %define	version	0
 %define preview preview3
-%define rel %mkrel 4
+%define rel %mkrel 6
 %define release	16.%{preview}.%rel
 %define	Summary	Mario-like game
 
