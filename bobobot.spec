@@ -15,8 +15,8 @@ License:	GPLv2+
 Group:		Games/Arcade
 BuildRequires:	SDL_mixer-devel X11-devel alsa-lib-devel esound-devel imagemagick
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
-Patch0:		%{name}-preview3-fix-makefile.patch.bz2
-Patch2:		%{name}-preview3-fix-nosound.patch.bz2
+Patch0:		%{name}-preview3-fix-makefile.patch
+Patch2:		%{name}-preview3-fix-nosound.patch
 
 %description
 BoboBot is a multi-level one-player action game starring "BoboBot," the
@@ -32,7 +32,7 @@ chmod +x mods/unused
 chmod -R a+r *
 
 %build
-%make SOUND=YES MUSIC=YES INSTALLROOT=%{_gamesdatadir}/%{name} OPTIMIZE="%{optflags}" X11_LIB="-L/usr/X11R6/%_lib -lX11" bobobot
+%make SOUND=YES MUSIC=YES INSTALLROOT=%{_gamesdatadir}/%{name} OPTIMIZE="%{optflags}" X11_LIB="-L%_libdir -lX11" bobobot
 
 %install
 rm -rf $RPM_BUILD_ROOT
