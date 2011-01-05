@@ -1,19 +1,20 @@
 %define	name	bobobot
 %define	version	0
 %define preview preview3
-%define rel %mkrel 7
-%define release	16.%{preview}.%rel
 %define	Summary	Mario-like game
 
 Summary:	%{Summary}
 Name:		%{name}
 Version:	%{version}
-Release:	%{release}
+Release:	%mkrel 16.%{preview}.8
 Source0:	ftp://ftp.sonic.net/pub/users/nbs/unix/x/bobobot/bobobot-preview3.tar.bz2
 Url:		http://newbreedsoftware.com/bobobot/
 License:	GPLv2+
 Group:		Games/Arcade
-BuildRequires:	SDL_mixer-devel X11-devel alsa-lib-devel esound-devel imagemagick
+Buildrequires:	SDL-devel
+BuildRequires:	SDL_mixer-devel
+Buildrequires:	libx11-devel
+BuildRequires:	imagemagick
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Patch0:		%{name}-preview3-fix-makefile.patch
 Patch2:		%{name}-preview3-fix-nosound.patch
@@ -32,7 +33,7 @@ chmod +x mods/unused
 chmod -R a+r *
 
 %build
-%make SOUND=YES MUSIC=YES INSTALLROOT=%{_gamesdatadir}/%{name} OPTIMIZE="%{optflags}" X11_LIB="-L%_libdir -lX11" bobobot
+%make SOUND=YES MUSIC=YES INSTALLROOT=%{_gamesdatadir}/%{name} OPTIMIZE="%{optflags}" X11_LIB="-L%_libdir -lX11" bobobot CC="gcc %ldflags"
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -42,11 +43,9 @@ convert %{name}-icon.xpm -size 16x16 $RPM_BUILD_ROOT%{_miconsdir}/%{name}.png
 convert %{name}-icon.xpm -size 32x32 $RPM_BUILD_ROOT%{_iconsdir}/%{name}.png
 convert %{name}-icon.xpm -size 48x48 $RPM_BUILD_ROOT%{_liconsdir}/%{name}.png
 
-
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
 cat > $RPM_BUILD_ROOT%{_datadir}/applications/mandriva-%{name}.desktop << EOF
 [Desktop Entry]
-Encoding=UTF-8
 Name=BoboBot
 Comment=%{summary}
 Exec=%_gamesbindir/%{name}
