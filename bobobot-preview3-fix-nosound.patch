@@ -1,0 +1,36 @@
+--- bobobot-preview3/src/bobobot.c.pix	Fri Dec  1 00:17:24 2000
++++ bobobot-preview3/src/bobobot.c	Mon Dec  4 17:46:04 2000
+@@ -1154,8 +1154,6 @@
+ 
+ 
+ #ifdef SOUND
+-  fprintf(stderr, "(Using sound...");
+-  
+   if (SDL_Init(SDL_INIT_AUDIO) < 0)
+     {
+       fprintf(stderr, "Couldn't initialize SDL sound.\n%s\n",
+@@ -1165,11 +1163,10 @@
+   
+   if (Mix_OpenAudio(11025, AUDIO_S8, 2, 512) < 0)
+     {
+-      fprintf(stderr,
+-	      "Warning: Couldn't set 11025 Hz 8-bit stereo audio.\n%s\n",
+-	      SDL_GetError());
+-      exit(1);
+-    }
++      no_sound = 1;
++    } 
++  else 
++    {
+   
+   if (no_sound == 0)
+     {
+@@ -1208,6 +1205,8 @@
+ #endif
+ 
+   fprintf(stderr, "Sounds good!)\n");
++
++    }
+   
+ #endif
+   dont_play = 0;

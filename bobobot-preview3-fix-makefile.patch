@@ -1,0 +1,11 @@
+--- bobobot-preview3/makefile.pix	Fri Dec  1 00:15:39 2000
++++ bobobot-preview3/makefile	Mon Dec  4 17:23:26 2000
+@@ -26,7 +26,7 @@
+ 
+ CFLAGS=-I$(X11_PREFIX)/include -DDATA=\"$(DATA)\" \
+ 	-DJOYSTICK_$(JOY) -DSOUND_$(SOUND) -DMUSIC_$(MUSIC) \
+-	-O2 -Wall -funroll-loops -ffast-math $(SDL_FLAGS_$(SOUND)$(MUSIC))
++	$(OPTIMIZE) -Wall -funroll-loops -ffast-math $(SDL_FLAGS_$(SOUND)$(MUSIC))
+ SDL_FLAGS_YES=$(shell sdl-config --cflags)
+ SDL_FLAGS_YESYES=$(SDL_FLAGS_YES)
+ SDL_LIB_YES=$(SDL_LIB)
