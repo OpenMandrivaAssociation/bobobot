@@ -13,7 +13,7 @@ License:	GPLv2+
 Group:		Games/Arcade
 Buildrequires:	SDL-devel
 BuildRequires:	SDL_mixer-devel
-Buildrequires:	libx11-devel
+Buildrequires:	pkgconfig(x11)
 BuildRequires:	imagemagick
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Patch0:		%{name}-preview3-fix-makefile.patch
