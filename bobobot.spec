@@ -1,12 +1,9 @@
-%define	name	bobobot
-%define	version	0
 %define preview preview3
-%define	Summary	Mario-like game
 
-Summary:	%{Summary}
-Name:		%{name}
-Version:	%{version}
-Release:	%mkrel 16.%{preview}.8
+Summary:	Mario-like game
+Name:		bobobot
+Version:	0
+Release:	16.%{preview}.9
 Source0:	ftp://ftp.sonic.net/pub/users/nbs/unix/x/bobobot/bobobot-preview3.tar.bz2
 Url:		http://newbreedsoftware.com/bobobot/
 License:	GPLv2+
@@ -15,7 +12,6 @@ Buildrequires:	SDL-devel
 BuildRequires:	SDL_mixer-devel
 Buildrequires:	pkgconfig(x11)
 BuildRequires:	imagemagick
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Patch0:		%{name}-preview3-fix-makefile.patch
 Patch2:		%{name}-preview3-fix-nosound.patch
 
@@ -36,15 +32,13 @@ chmod -R a+r *
 %make SOUND=YES MUSIC=YES INSTALLROOT=%{_gamesdatadir}/%{name} OPTIMIZE="%{optflags}" X11_LIB="-L%_libdir -lX11" bobobot CC="gcc %ldflags"
 
 %install
-rm -rf $RPM_BUILD_ROOT
+%{__install} -d %{buildroot}{%{_liconsdir},%{_miconsdir}}
+convert %{name}-icon.xpm -size 16x16 %{buildroot}%{_miconsdir}/%{name}.png
+convert %{name}-icon.xpm -size 32x32 %{buildroot}%{_iconsdir}/%{name}.png
+convert %{name}-icon.xpm -size 48x48 %{buildroot}%{_liconsdir}/%{name}.png
 
-%{__install} -d $RPM_BUILD_ROOT{%{_liconsdir},%{_miconsdir}}
-convert %{name}-icon.xpm -size 16x16 $RPM_BUILD_ROOT%{_miconsdir}/%{name}.png
-convert %{name}-icon.xpm -size 32x32 $RPM_BUILD_ROOT%{_iconsdir}/%{name}.png
-convert %{name}-icon.xpm -size 48x48 $RPM_BUILD_ROOT%{_liconsdir}/%{name}.png
-
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
-cat > $RPM_BUILD_ROOT%{_datadir}/applications/mandriva-%{name}.desktop << EOF
+mkdir -p %{buildroot}%{_datadir}/applications
+cat > %{buildroot}%{_datadir}/applications/mandriva-%{name}.desktop << EOF
 [Desktop Entry]
 Name=BoboBot
 Comment=%{summary}
@@ -55,22 +49,11 @@ Type=Application
 Categories=Game;ArcadeGame;
 EOF
 
-install -d $RPM_BUILD_ROOT{%{_gamesbindir},%{_gamesdatadir}/%{name}}
-make INSTALLROOT=$RPM_BUILD_ROOT%{_gamesdatadir}/%{name}
-mv $RPM_BUILD_ROOT%{_gamesdatadir}/%{name}/%{name} $RPM_BUILD_ROOT%{_gamesbindir}
-
-%if %mdkversion < 200900
-%post
-%update_menus
-%endif
-
-%if %mdkversion < 200900
-%postun
-%clean_menus
-%endif
+install -d %{buildroot}{%{_gamesbindir},%{_gamesdatadir}/%{name}}
+make INSTALLROOT=%{buildroot}%{_gamesdatadir}/%{name}
+mv %{buildroot}%{_gamesdatadir}/%{name}/%{name} %{buildroot}%{_gamesbindir}
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
