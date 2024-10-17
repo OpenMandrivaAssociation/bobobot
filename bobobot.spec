@@ -5,7 +5,7 @@ Name:		bobobot
 Version:	0
 Release:	16.%{preview}.9
 Source0:	ftp://ftp.sonic.net/pub/users/nbs/unix/x/bobobot/bobobot-preview3.tar.bz2
-Url:		http://newbreedsoftware.com/bobobot/
+Url:		https://newbreedsoftware.com/bobobot/
 License:	GPLv2+
 Group:		Games/Arcade
 BuildRequires:	pkgconfig(sdl)
