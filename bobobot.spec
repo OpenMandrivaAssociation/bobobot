@@ -8,6 +8,7 @@ Source0:	ftp://ftp.sonic.net/pub/users/nbs/unix/x/bobobot/bobobot-preview3.tar.b
 Url:		https://newbreedsoftware.com/bobobot/
 License:	GPLv2+
 Group:		Games/Arcade
+BuildRequires:	make
 BuildRequires:	pkgconfig(sdl)
 BuildRequires:	pkgconfig(SDL_mixer)
 BuildRequires:	pkgconfig(x11)
